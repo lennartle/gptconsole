@@ -345,7 +345,7 @@ const Message = ({ id, initialContent, containerRef, onWeightChange }: MessagePr
           />
         ) : (
           <article
-            className={`${style.bgDark} leading-6 p-4 prose prose-invert max-w-none prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#4b556380]`}
+            className={`${style.bgDark} leading-6 p-4 prose prose-invert max-w-none prose-code:before:content-none prose-code:after:content-none prose-pre:my-[1.5em] prose-pre:bg-[#4b556380]`}
           >
             <Markdown text={selectedMemoProps?.data.content} />
           </article>
