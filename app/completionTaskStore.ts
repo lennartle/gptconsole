@@ -39,7 +39,9 @@ const chatCompletion: ChatCompletion = ({ opts, apiKey, onText, signal }) =>
       const decoder = new TextDecoder("utf8");
 
       if (res.statusCode !== 200) {
-        reject(`OpenAI: ${res.statusCode} ${res.statusMessage}`);
+        res.on("data", (chunk) => {
+          reject(`OpenAI: ${res.statusCode} - ${JSON.parse(decoder.decode(chunk) || "{}")?.error?.code || 'unknown'}`);
+        });
         return;
       }
 
