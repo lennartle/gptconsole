@@ -2,10 +2,7 @@
 
 ![preview](https://github.com/lennartle/gptconsole/assets/45395412/9a7ac37c-4ffc-4c9c-8335-0f3662a9161c)
 
-
-To achieve the best results from GPT, there's already a concept known as "prompt engineering" but I think it goes beyond that. You need to consider performing the whole "dialogue engineering", which means you ought to be able to edit both requests and answers. However, the original client is more like a traditional chat.
-
-So, I wanted to create a simple tool that falls somewhere between a code editor with git-like versions of messages and a chat, allowing the simplicity of conversation.
+A simple tool that falls somewhere between a text editor with git-like versions of messages and a chat, allowing the simplicity of conversation.
 
 Key points:
 
