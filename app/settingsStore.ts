@@ -1,8 +1,9 @@
+import { AvailableModels } from "./completionTaskStore";
 import { createAtom, storage } from "./utils";
 
 const createSettingsStore = () => {
   type SettingsStore = {
-    model?: "gpt-3.5-turbo" | "gpt-4";
+    model?: (typeof AvailableModels)[number]["value"];
     max_tokens?: number;
     temperature?: number;
     apiKey?: string;
@@ -11,7 +12,7 @@ const createSettingsStore = () => {
   const store = storage<SettingsStore>("settings");
 
   const atom = createAtom<SettingsStore>({
-    model: "gpt-3.5-turbo",
+    model: AvailableModels[0].value,
     max_tokens: 1024,
     temperature: 1,
     ...store.get(),

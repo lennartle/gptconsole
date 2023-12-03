@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import Markdown from "./markdown";
 import Textarea from "./textarea";
 
-import { completionTaskStore } from "./completionTaskStore";
+import { AvailableModels, completionTaskStore } from "./completionTaskStore";
 import { settingsStore } from "./settingsStore";
 
 import { storage } from "./utils";
@@ -266,11 +266,6 @@ const Message = ({ id, initialContent, containerRef, onWeightChange }: MessagePr
     },
   }[selectedMsg?.role || defaultChildRole];
 
-  const models = [
-    { label: "GPT 4", value: "gpt-4" },
-    { label: "GPT 3.5", value: "gpt-3.5-turbo" },
-  ] as const;
-
   return (
     <>
       <div className={`${style.bg} text-white p-2 flex flex-col w-full max-w-screen-lg`} ref={ref}>
@@ -280,7 +275,7 @@ const Message = ({ id, initialContent, containerRef, onWeightChange }: MessagePr
               const activeColor = selectedMsg?.id === msgData.id ? style.bgAccent : "";
 
               const weightText = msgData.weight ? `[${msgData.weight}] ` : "";
-              const metaText = models.find((m) => m.value === msgData?.meta?.model)?.label.concat(" : ") || "";
+              const metaText = AvailableModels.find((m) => m.value === msgData?.meta?.model)?.label.concat(" : ") || "";
               const contentText = msgData.content?.slice(0, 200) || "...";
 
               return (

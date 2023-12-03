@@ -1,9 +1,15 @@
 import { request } from "https";
 import { createAtom } from "./utils";
 
+export const AvailableModels = [
+  { label: "GPT 4TP", value: "gpt-4-1106-preview" },
+  { label: "GPT 4", value: "gpt-4" },
+  { label: "GPT 3.5T", value: "gpt-3.5-turbo" },
+] as const;
+
 type ChatCompletionOptions = {
-  messages: Array<{ role: "user" | "assistant" | "system"; content: string }>;
-  model?: "gpt-3.5-turbo" | "gpt-4";
+  messages?: Array<{ role: "user" | "assistant" | "system"; content: string }>;
+  model?: (typeof AvailableModels)[number]["value"];
   max_tokens?: number;
   stream?: boolean;
   temperature?: number;
@@ -18,11 +24,6 @@ type ChatCompletion = (props: {
 
 const chatCompletion: ChatCompletion = ({ opts, apiKey, onText, signal }) =>
   new Promise((resolve, reject) => {
-    if (!apiKey) {
-      reject("No API key provided!");
-      return;
-    }
-
     let fullText = "";
 
     const options = {
@@ -40,7 +41,7 @@ const chatCompletion: ChatCompletion = ({ opts, apiKey, onText, signal }) =>
 
       if (res.statusCode !== 200) {
         res.on("data", (chunk) => {
-          reject(`OpenAI: ${res.statusCode} - ${JSON.parse(decoder.decode(chunk) || "{}")?.error?.code || 'unknown'}`);
+          reject(`OpenAI: ${res.statusCode} - ${JSON.parse(decoder.decode(chunk) || "{}")?.error?.code || "unknown"}`);
         });
         return;
       }

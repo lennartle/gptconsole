@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { settingsStore } from "./settingsStore";
-import { completionTaskStore } from "./completionTaskStore";
+import { completionTaskStore, AvailableModels } from "./completionTaskStore";
 
 const Header = () => {
   const [settings, setSettings] = useState(settingsStore.get());
@@ -17,13 +17,8 @@ const Header = () => {
     };
   }, []);
 
-  const models = [
-    { label: "GPT 4", value: "gpt-4" },
-    { label: "GPT 3.5", value: "gpt-3.5-turbo" },
-  ] as const;
-
   const handleModelSelect = (val: string) => {
-    settingsStore.set({ ...settings, model: val as (typeof models)[number]["value"] });
+    settingsStore.set({ ...settings, model: val as (typeof AvailableModels)[number]["value"] });
   };
 
   const handleApiKeyInput = (val: string) => {
@@ -53,7 +48,7 @@ const Header = () => {
       <label className="px-2 py-1 bg-white">
         <span className="text-gray-500">Model: </span>
         <select value={settings.model} onChange={(e) => handleModelSelect(e.target.value)}>
-          {models.map((model) => (
+          {AvailableModels.map((model) => (
             <option key={model.value} value={model.value}>
               {model.label}
             </option>
